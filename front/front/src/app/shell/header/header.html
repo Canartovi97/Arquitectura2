@@ -1,0 +1,26 @@
+<header class="header">
+  <div class="topbar"></div>
+
+  <div class="inner">
+    <a class="brand" routerLink="/">
+      <img src="assets/parfing.png" alt="" aria-hidden="true" />
+      <span>Park<span class="accent">Now</span></span>
+    </a>
+
+    <nav class="nav" [class.open]="isOpen">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Inicio</a>
+      <a routerLink="/buscar" routerLinkActive="active">Buscar</a>
+      <a routerLink="/reservas" routerLinkActive="active">Mis reservas</a>
+      <a routerLink="/ayuda" routerLinkActive="active">Ayuda</a>
+    </nav>
+
+    <div class="actions">
+      <a class="btn ghost" routerLink="/register">Registrarse</a>
+      <a class="btn primary" routerLink="/login">Ingresar</a>
+
+      <button class="hamb" (click)="toggle()" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>

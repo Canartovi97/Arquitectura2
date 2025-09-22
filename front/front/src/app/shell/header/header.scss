@@ -1,0 +1,77 @@
+$blue: #2e86ff;
+$blue-700: #1f6fe0;
+$bg: #0f1219;
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba($bg, .92);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  color: #e8eaed;
+}
+
+.topbar {
+  height: 3px;
+  background: linear-gradient(90deg, $blue, #00d4ff);
+}
+
+.inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: .75rem 1rem;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1rem;
+  align-items: center;
+}
+
+.brand {
+  display: inline-flex; align-items: center; gap: .6rem;
+  text-decoration: none; color: #fff; font-weight: 800; letter-spacing: .2px;
+
+  img { width: 28px; height: 28px; }
+  .accent { color: $blue; }
+}
+
+.nav {
+  display: flex; gap: 1rem; align-items: center;
+  a {
+    color: #cfd6e8; text-decoration: none; padding: .35rem .5rem; border-radius: 8px;
+    &:hover { color: #fff; background: rgba(255,255,255,.05); }
+    &.active { color: #fff; background: rgba($blue, .18); }
+  }
+}
+
+
+.actions {
+  display: inline-flex; align-items: center; gap: .6rem;
+
+  .btn {
+    text-decoration: none; font-weight: 700; padding: .55rem .9rem; border-radius: 10px;
+    border: 1px solid transparent;
+
+    &.primary { background: $blue; color: #fff; &:hover { background: $blue-700; } }
+    &.ghost { border-color: rgba(255,255,255,.2); color: #e8eaed; &:hover { border-color: rgba(255,255,255,.4); } }
+  }
+
+  .hamb {
+    display: none;
+    width: 38px; height: 38px; border: 0; border-radius: 10px; background: rgba(255,255,255,.06); cursor: pointer;
+    span { display: block; height: 2px; margin: 7px 8px; background: #fff; }
+  }
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .nav {
+    position: absolute; left: 0; right: 0; top: 64px;
+    background: rgba($bg, .98);
+    display: grid; gap: .25rem; padding: .75rem 1rem; border-bottom: 1px solid rgba(255,255,255,.06);
+    transform-origin: top; transform: scaleY(0); transition: transform .2s ease;
+    &.open { transform: scaleY(1); }
+  }
+  .actions .hamb { display: inline-block; }
+}

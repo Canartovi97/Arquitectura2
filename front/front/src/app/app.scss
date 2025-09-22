@@ -1,0 +1,14 @@
+
+.layout {
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background: #24212b;
+  border: none;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.page {
+  min-height: 0;
+}
