@@ -1,0 +1,95 @@
+services:
+
+  postgres-db:
+    image: postgres:16
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: userdata
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: parqueaya_userdb
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+
+  postgres-parking:
+    image: postgres:16
+    container_name: postgres_parkingdb
+    environment:
+      POSTGRES_USER: parkingdata
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: parqueaya_parkingdb
+    ports:
+      - "5434:5432"  # Puerto diferente para evitar conflicto
+    volumes:
+      - postgres_parking_data:/var/lib/postgresql/data
+
+  postgres-booking:
+    image: postgres:16
+    container_name: postgres_bookingdb
+    environment:
+      POSTGRES_USER: bookingdata
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: parqueaya_bookingdb
+    ports:
+      - "5435:5432"
+    volumes:
+      - postgres_booking:/var/lib/postgresql/data
+
+  postgres-payment:
+    image: postgres:16
+    container_name: postgres_paymentdb
+    environment:
+      POSTGRES_USER: paymentdata
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: parqueaya_paymentdb
+    ports:
+      - "5436:5432"
+    volumes:
+      - postgres_payment:/var/lib/postgresql/data
+
+  postgres-notification:
+    image: postgres:16
+    container_name: postgres_notificationdb
+    environment:
+      POSTGRES_USER: notificationdata
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: parqueaya_notificationdb
+    ports:
+      - "5437:5432"
+    volumes:
+      - postgres_notification:/var/lib/postgresql/data
+
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: Pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: 123456
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres-db
+
+  minio-images:
+    image: quay.io/minio/minio
+    container_name: minio_images
+    ports:
+      - "9000:9000"   # API S3-compatible
+      - "9001:9001"   # Consola web
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio-data-images:/data
+
+volumes:
+  postgres_data:
+  postgres_parking_data:
+  minio-data-images:
+  postgres_booking:
+  postgres_payment:
+  postgres_notification:

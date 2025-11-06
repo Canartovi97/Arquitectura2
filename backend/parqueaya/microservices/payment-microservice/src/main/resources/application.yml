@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: payment-microservice
+  config:
+    import: optional:configserver:http://localhost:8888
+
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:5436/parqueaya_paymentdb
+    username: paymentdata
+    password: 123456
+    driverClassName: org.postgresql.Driver
+
+mercado-pago:
+  access-token: "APP_USR-7357938394818510-110118-090eb7821b6c0c49e2bf27fce49fdfca-2959447849"
+
+server:
+  port: 9098

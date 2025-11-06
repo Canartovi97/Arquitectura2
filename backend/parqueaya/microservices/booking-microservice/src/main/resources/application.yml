@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: booking-microservice
+  config:
+    import: optional:configserver:http://localhost:8888
+
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:5435/parqueaya_bookingdb
+    username: bookingdata
+    password: 123456
+    driverClassName: org.postgresql.Driver
+
+server:
+  port: 9095
+
+parking:
+  service:
+#    url: http://parking-service:9092  # En Docker, usa el nombre del servicio
+    url: http://localhost:9092  # En Docker, usa el nombre del servicio
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 10000

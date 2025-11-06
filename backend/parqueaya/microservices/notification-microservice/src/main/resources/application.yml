@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: notification-microservice
+  config:
+    import: optional:configserver:http://localhost:8888
+
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:5437/parqueaya_notificationdb
+    username: notificationdata
+    password: 123456
+    driverClassName: org.postgresql.Driver
+
+server:
+  port: 9099
