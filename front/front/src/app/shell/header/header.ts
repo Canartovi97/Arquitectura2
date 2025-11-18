@@ -1,18 +1,31 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-
+import { RouterModule, Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
-  standalone: true,
   selector: 'app-header',
+  standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './header.html',
-  styleUrls: ['./header.scss']
+  styleUrls: ['./header.scss'],
 })
 export class Header {
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
-    isOpen = false;
-  toggle() { this.isOpen = !this.isOpen; }
+  get isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
 
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
+
+  goHome(): void {
+    this.router.navigate(['/']);
+  }
 }

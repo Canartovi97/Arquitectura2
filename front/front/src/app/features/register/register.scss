@@ -1,0 +1,20 @@
+@import '../login/login.scss';
+
+
+
+
+.grid-two {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.success {
+  font-size: 0.8rem;
+  color: #4ade80;
+  margin-top: 0.1rem;
+}
