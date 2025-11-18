@@ -41,6 +41,22 @@ export const routes: Routes = [
       ),
   },
 
+  {
+    path: 'reservas/mis-reservas',
+    loadComponent: () =>
+      import('./features/bookings/my-bookings.component/my-bookings.component').then(
+        (m) => m.MyBookingsComponent
+      ),
+
+  },
+
+  {
+    path: 'account',
+    loadComponent: () =>
+      import('./features/account/account.component/account.component').then(
+        (m) => m.AccountComponent
+      ),
+  },
 
   {
     path: '**',

@@ -3,6 +3,7 @@ package co.ucentral.microservices.user_microservice.service;
 import co.ucentral.microservices.user_microservice.configuration.security.util.AuthLoginRequest;
 import co.ucentral.microservices.user_microservice.configuration.security.util.AuthResponse;
 import co.ucentral.microservices.user_microservice.configuration.security.util.JwtUtil;
+import co.ucentral.microservices.user_microservice.domain.user.User;
 import co.ucentral.microservices.user_microservice.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -37,6 +38,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Authentication authentication = this.authenticate(username,password);
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
+
+        UserDetails userDetails = this.loadUserByUsername(username);
+
+        Long userId = ((User) userDetails).getId();
+
         String accessToken = jwtUtil.createToken(authentication);
 
         String role = authentication.getAuthorities().stream()
@@ -46,6 +52,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 
         return AuthResponse.builder()
+                .id(userId)
                 .jwt(accessToken)
                 .message("user logged in successfully")
                 .role(role)

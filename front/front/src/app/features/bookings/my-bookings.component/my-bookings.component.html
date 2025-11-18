@@ -1,0 +1,62 @@
+<div class="bookings-page">
+  <div class="bookings-card">
+    <header class="bookings-header">
+      <div>
+        <h1>Mis reservas</h1>
+        <p>
+          Consulta el historial de tus reservas de parqueaderos.
+        </p>
+      </div>
+    </header>
+
+    <section class="bookings-body">
+      <div *ngIf="loading" class="state">
+        Cargando reservas...
+      </div>
+
+      <div *ngIf="!loading && error" class="state state-error">
+        {{ error }}
+      </div>
+
+      <div *ngIf="!loading && !error && bookings.length === 0" class="state">
+        Aún no tienes reservas registradas.
+      </div>
+
+      <ul *ngIf="!loading && !error && bookings.length > 0" class="bookings-list">
+        <li *ngFor="let booking of bookings" class="booking-item">
+          <div class="booking-main">
+            <div class="booking-title-row">
+              <h2>Parqueadero {{ booking.parkingSpaceId }}</h2>
+
+              <span class="badge" [ngClass]="getStatusClass(booking.status)">
+                {{ getStatusLabel(booking.status) }}
+              </span>
+            </div>
+
+            <div class="booking-row">
+              <span class="label">Inicio</span>
+              <span class="value">
+                {{ booking.startTime | date: 'dd/MM/yyyy HH:mm' }}
+              </span>
+            </div>
+
+            <div class="booking-row">
+              <span class="label">Fin</span>
+              <span class="value">
+                {{ booking.endTime | date: 'dd/MM/yyyy HH:mm' }}
+              </span>
+            </div>
+
+
+          </div>
+
+          <div class="booking-actions">
+            <button type="button" class="btn-outline" (click)="goToParking(booking)">
+              Ver parqueadero
+            </button>
+          </div>
+        </li>
+      </ul>
+    </section>
+  </div>
+</div>

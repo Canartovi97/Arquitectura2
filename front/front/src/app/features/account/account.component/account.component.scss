@@ -1,0 +1,326 @@
+.account-page {
+  min-height: 100vh;
+  padding: 3rem 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: radial-gradient(circle at top, #1e40af 0, #020617 55%);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #e5e7eb;
+}
+
+.account-card {
+  width: 100%;
+  max-width: 1120px;
+  background: radial-gradient(circle at top left, rgba(59, 130, 246, 0.18), rgba(15, 23, 42, 0.96));
+  border-radius: 1.8rem;
+  padding: 2rem 2.5rem 2.5rem;
+  box-shadow:
+    0 40px 90px rgba(15, 23, 42, 0.9),
+    0 0 0 1px rgba(148, 163, 184, 0.15);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  backdrop-filter: blur(24px);
+}
+
+.account-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2rem;
+
+  h1 {
+    font-size: 1.9rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+  }
+
+  p {
+    margin-top: 0.3rem;
+    font-size: 0.9rem;
+    color: #9ca3af;
+  }
+}
+
+.user-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  background: radial-gradient(circle at top, rgba(37, 99, 235, 0.6), rgba(15, 23, 42, 0.9));
+  border: 1px solid rgba(129, 140, 248, 0.5);
+  box-shadow: 0 10px 35px rgba(15, 23, 42, 0.9);
+}
+
+.avatar {
+  width: 2.3rem;
+  height: 2.3rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #22c55e, #4ade80);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #022c22;
+  font-size: 0.95rem;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+
+  .user-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .user-username {
+    font-size: 0.8rem;
+    color: #9ca3af;
+  }
+}
+
+.account-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 1.75rem;
+}
+
+.panel {
+  background: rgba(15, 23, 42, 0.92);
+  border-radius: 1.4rem;
+  padding: 1.5rem 1.6rem 1.7rem;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(55, 65, 81, 0.6);
+
+  h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+  }
+}
+
+.panel-subtitle {
+  font-size: 0.85rem;
+  color: #9ca3af;
+  margin-bottom: 1.3rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 1.1rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+
+  &.small {
+    max-width: 120px;
+  }
+
+  label {
+    font-size: 0.8rem;
+    color: #9ca3af;
+  }
+}
+
+.input {
+  border-radius: 0.7rem;
+  border: 1px solid rgba(55, 65, 81, 0.85);
+  background: rgba(15, 23, 42, 0.9);
+  padding: 0.55rem 0.75rem;
+  font-size: 0.85rem;
+  color: #e5e7eb;
+  outline: none;
+  transition: border-color 150ms ease, box-shadow 150ms ease, background 150ms ease;
+
+  &:focus {
+    border-color: #38bdf8;
+    box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.35);
+    background: rgba(15, 23, 42, 0.95);
+  }
+
+  &:disabled {
+    background: rgba(31, 41, 55, 0.9);
+    color: #9ca3af;
+    cursor: not-allowed;
+  }
+}
+
+.error {
+  font-size: 0.75rem;
+  color: #f97373;
+}
+
+.actions-row {
+  margin-top: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.btn-primary,
+.btn-outline {
+  border-radius: 999px;
+  padding: 0.55rem 1.4rem;
+  font-size: 0.85rem;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #22c55e, #4ade80);
+  color: #022c22;
+  box-shadow: 0 10px 35px rgba(34, 197, 94, 0.45);
+
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 15px 45px rgba(34, 197, 94, 0.5);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid rgba(59, 130, 246, 0.8);
+  color: #bfdbfe;
+
+  &:hover:not(:disabled) {
+    background: rgba(37, 99, 235, 0.1);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+}
+
+.success {
+  font-size: 0.8rem;
+  color: #4ade80;
+}
+
+.cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.3rem;
+}
+
+.card-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9rem 1rem;
+  border-radius: 1rem;
+  background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.35), rgba(15, 23, 42, 0.96));
+  border: 1px solid rgba(59, 130, 246, 0.5);
+}
+
+.card-default {
+  box-shadow: 0 14px 45px rgba(59, 130, 246, 0.7);
+}
+
+.card-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.card-brand {
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #bfdbfe;
+}
+
+.card-number {
+  font-size: 0.98rem;
+  font-weight: 600;
+}
+
+.card-meta {
+  display: flex;
+  gap: 0.75rem;
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+.card-alias {
+  font-style: italic;
+}
+
+.card-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.35rem;
+}
+
+.btn-link {
+  background: none;
+  border: none;
+  font-size: 0.78rem;
+  padding: 0;
+  color: #93c5fd;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+
+  &.danger {
+    color: #fecaca;
+  }
+}
+
+.badge {
+  font-size: 0.7rem;
+  padding: 0.18rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(34, 197, 94, 0.15);
+  border: 1px solid rgba(34, 197, 94, 0.6);
+  color: #bbf7d0;
+}
+
+.empty-text {
+  font-size: 0.82rem;
+  color: #9ca3af;
+}
+
+.add-card-panel h3 {
+  font-size: 0.98rem;
+  margin-bottom: 0.7rem;
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+  .account-page {
+    padding: 2rem 1.5rem;
+  }
+
+  .account-content {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .form-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .account-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

@@ -1,0 +1,179 @@
+<div class="account-page">
+  <div class="account-card">
+    <!-- CABECERA -->
+    <div class="account-header">
+      <div>
+        <h1>Mi cuenta</h1>
+        <p>Gestiona tu información personal y tus métodos de pago.</p>
+      </div>
+
+      <div class="user-chip">
+        <div class="avatar">
+          {{ initials }}
+        </div>
+
+        <div class="user-info">
+          <span class="user-name">
+            {{ userProfile?.name }} {{ userProfile?.lastname }}
+          </span>
+          <span class="user-username">
+            @{{ userProfile?.username }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="account-content">
+      <!-- COLUMNA IZQUIERDA: PERFIL -->
+      <section class="panel panel-profile">
+        <h2>Datos personales</h2>
+        <p class="panel-subtitle">
+          Actualiza tu información básica. Tu usuario no puede modificarse.
+        </p>
+
+        <form [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+          <div class="form-grid">
+            <div class="form-field">
+              <label>Usuario</label>
+              <input type="text" formControlName="username" class="input" readonly />
+            </div>
+
+            <div class="form-field">
+              <label>Nombre</label>
+              <input type="text" formControlName="name" class="input" />
+              <small class="error" *ngIf="f['name'].touched && f['name'].invalid">
+                El nombre es obligatorio.
+              </small>
+            </div>
+
+            <!-- Apellidos -->
+            <div class="form-field">
+              <label>Apellidos</label>
+              <input type="text" formControlName="lastname" class="input" />
+              <small class="error" *ngIf="f['lastname'].touched && f['lastname'].invalid">
+                Los apellidos son obligatorios.
+              </small>
+            </div>
+
+            <div class="form-field">
+              <label>Email</label>
+              <input type="email" formControlName="email" class="input" />
+              <small class="error" *ngIf="f['email'].touched && f['email'].invalid">
+                Ingresa un email válido.
+              </small>
+            </div>
+
+            <div class="form-field small" readonly>
+              <label>Edad</label>
+              <input type="number" formControlName="age" class="input" readonly />
+              <small class="error" *ngIf="f['age'].touched && f['age'].invalid">
+                La edad debe estar entre 8 y 100 años.
+              </small>
+            </div>
+
+            <div class="form-field">
+              <label>Teléfono</label>
+              <input type="tel" formControlName="phone" class="input" />
+              <small class="error" *ngIf="f['phone'].touched && f['phone'].invalid">
+                Ingresa un número de teléfono válido.
+              </small>
+            </div>
+          </div>
+
+          <div class="actions-row">
+            <button class="btn-primary" type="submit" [disabled]="isSavingProfile">
+              <span *ngIf="!isSavingProfile">Guardar cambios</span>
+              <span *ngIf="isSavingProfile">Guardando...</span>
+            </button>
+
+            <span class="success" *ngIf="profileSaved">
+              Datos actualizados.
+            </span>
+          </div>
+        </form>
+      </section>
+
+      <!-- COLUMNA DERECHA: TARJETAS -->
+      <section class="panel panel-cards">
+        <h2>Tarjetas de pago</h2>
+        <p class="panel-subtitle">
+          Tarjetas con las que se realizan los pagos de las reservas.
+        </p>
+
+        <!-- LISTA DE TARJETAS -->
+        <div class="cards-list" *ngIf="cards.length > 0; else noCards">
+          <div class="card-item" *ngFor="let card of cards" [class.card-default]="card.isDefault">
+            <div class="card-main">
+              <div class="card-brand">{{ card.brand }}</div>
+              <div class="card-number">**** **** **** {{ card.last4 }}</div>
+              <div class="card-meta">
+                <span>Vence: {{ card.expiry }}</span>
+                <span class="card-alias">{{ card.alias }}</span>
+              </div>
+            </div>
+
+            <div class="card-actions">
+              <button type="button" class="btn-link" *ngIf="!card.isDefault" (click)="setDefaultCard(card)">
+                Hacer principal
+              </button>
+              <span class="badge" *ngIf="card.isDefault">Principal</span>
+              <button type="button" class="btn-link danger" (click)="removeCard(card)">
+                Eliminar
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <ng-template #noCards>
+          <p class="empty-text">Aún no tienes tarjetas registradas .</p>
+        </ng-template>
+
+        <!-- FORMULARIO NUEVA TARJETA -->
+        <div class="add-card-panel">
+          <h3>Agregar nueva tarjeta </h3>
+
+          <form [formGroup]="cardForm" (ngSubmit)="addCard()">
+            <div class="form-grid">
+              <div class="form-field">
+                <label>Alias de la tarjeta</label>
+                <input type="text" formControlName="alias" class="input" />
+              </div>
+
+              <div class="form-field">
+                <label>Nombre del titular</label>
+                <input type="text" formControlName="holderName" class="input" />
+              </div>
+
+              <div class="form-field">
+                <label>Número de tarjeta</label>
+                <input type="text" formControlName="cardNumber" class="input" maxlength="19"
+                  placeholder="**** **** **** 4242" />
+              </div>
+
+              <div class="form-field small">
+                <label>Mes</label>
+                <input type="text" formControlName="expiryMonth" class="input" maxlength="2" placeholder="MM" />
+              </div>
+
+              <div class="form-field small">
+                <label>Año</label>
+                <input type="text" formControlName="expiryYear" class="input" maxlength="2" placeholder="YY" />
+              </div>
+            </div>
+
+            <div class="actions-row">
+              <button class="btn-outline" type="submit" [disabled]="isSavingCard">
+                <span *ngIf="!isSavingCard">Guardar tarjeta </span>
+                <span *ngIf="isSavingCard">Guardando...</span>
+              </button>
+
+              <span class="success" *ngIf="cardSaved">
+                Tarjeta agregada.
+              </span>
+            </div>
+          </form>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

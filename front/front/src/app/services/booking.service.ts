@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 const API_URL = 'http://localhost:8080/api/v1';
@@ -13,6 +13,8 @@ export interface Booking {
   startTime: string;
   endTime: string;
   status: BookingStatus;
+  // Si más adelante el backend devuelve monto, puedes agregar:
+  // totalAmount?: number;
 }
 
 export interface CreateBookingRequest {
@@ -35,5 +37,20 @@ export class BookingService {
       `${API_URL}/bookings/${bookingId}/cancel`,
       {}
     );
+  }
+
+  /**
+   * Obtiene las reservas de un usuario.
+   * Usa el endpoint: GET /bookings?userId=...&parkingSpaceId=...
+   * (parkingSpaceId es opcional)
+   */
+  getBookingsByUser(userId: number, parkingSpaceId?: number): Observable<Booking[]> {
+    let params = new HttpParams().set('userId', userId);
+
+    if (parkingSpaceId != null) {
+      params = params.set('parkingSpaceId', parkingSpaceId);
+    }
+
+    return this.http.get<Booking[]>(`${API_URL}/bookings`, { params });
   }
 }
