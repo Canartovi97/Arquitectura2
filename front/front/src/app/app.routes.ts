@@ -8,18 +8,28 @@ export const routes: Routes = [
   },
   {
     path: 'login',
-    // features/login/login.component.ts
     loadComponent: () =>
-      import('./features/login/login').then(
-        (m) => m.Login
-      ),
+      import('./features/login/login').then((m) => m.Login),
   },
   {
     path: 'register',
-    // features/register/register.component.ts
     loadComponent: () =>
       import('./features/register/register').then(
         (m) => m.Register
+      ),
+  },
+  {
+    path: 'dashboard',
+    loadComponent: () =>
+      import('./features/parking/parking-dashboard.component/parking-dashboard.component').then(
+        (m) => m.ParkingDashboardComponent
+      ),
+  },
+  {
+    path: 'parking-spaces/new',
+    loadComponent: () =>
+      import('./features/parking/parking-form.component/parking-form.component').then(
+        (m) => m.ParkingFormComponent
       ),
   },
   {

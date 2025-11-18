@@ -19,8 +19,10 @@ export interface LoginRequest {
   password: string;
 }
 
+// 👇 así viene la respuesta del backend
 export interface LoginResponse {
-  token: string; // ajusta al nombre que devuelva tu backend
+  jwt: string;
+  message: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -36,8 +38,8 @@ export class AuthService {
   login(body: LoginRequest): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${API_URL}/user/auth/login`, body).pipe(
       tap((res) => {
-        if (res?.token) {
-          localStorage.setItem(this.tokenKey, res.token);
+        if (res?.jwt) {
+          localStorage.setItem(this.tokenKey, res.jwt);
         }
       })
     );

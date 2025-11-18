@@ -1,0 +1,76 @@
+<div class="dashboard-page">
+  <div class="dashboard-inner">
+    <header class="dashboard-header">
+      <div>
+        <h1>Espacios de parqueadero disponibles</h1>
+        <p>Consulta y administra los parqueaderos registrados en la plataforma.</p>
+      </div>
+
+      <button class="btn-primary" (click)="goToCreate()">
+        + Nuevo espacio
+      </button>
+    </header>
+
+    <section class="dashboard-content" *ngIf="!loading && !error">
+      <div *ngIf="spaces.length === 0" class="empty-state">
+        No hay espacios disponibles en este momento.
+      </div>
+
+      <div class="cards-grid" *ngIf="spaces.length > 0">
+        <article class="card" *ngFor="let space of spaces">
+          <div class="card-header">
+            <div>
+              <h2>{{ space.title }}</h2>
+              <p class="subtitle">
+                {{ space.location?.neighborhood }}, {{ space.location?.city }}
+              </p>
+            </div>
+            <span class="badge">Disponible</span>
+          </div>
+
+          <p class="description">
+            {{ space.description }}
+          </p>
+
+          <div class="card-row">
+            <span class="label">Precio por hora</span>
+            <span class="value">
+              {{ space.pricePerHour | currency : 'COP' : 'symbol-narrow' : '1.0-0' }}
+            </span>
+          </div>
+
+          <div class="card-row">
+            <span class="label">Dirección</span>
+            <span class="value">{{ space.location?.address }}</span>
+          </div>
+
+          <div class="card-row coords" *ngIf="space.location">
+            <span class="label">Coordenadas</span>
+            <span class="value">
+              Lat: {{ space.location.latitude }} · Lng:
+              {{ space.location.longitude }}
+            </span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section *ngIf="loading" class="state loading-state">
+      Cargando espacios de parqueo...
+    </section>
+
+    <section *ngIf="error" class="state error-state">
+      {{ error }}
+    </section>
+
+    <section class="pagination" *ngIf="totalPages > 1">
+      <button (click)="prevPage()" [disabled]="page === 0">
+        Anterior
+      </button>
+      <span>Página {{ page + 1 }} de {{ totalPages }}</span>
+      <button (click)="nextPage()" [disabled]="page + 1 >= totalPages">
+        Siguiente
+      </button>
+    </section>
+  </div>
+</div>

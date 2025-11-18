@@ -29,7 +29,8 @@ export class Register {
       lastname: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       age: [null, [Validators.required, Validators.min(18)]],
-      phone: ['', Validators.required],
+      phone: [null, Validators.required]
+
     });
   }
 

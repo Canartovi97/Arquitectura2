@@ -1,0 +1,78 @@
+<div class="form-page">
+  <div class="form-card">
+    <div class="form-header">
+      <h1>Nuevo espacio de parqueadero</h1>
+      <p>Registra un nuevo espacio para que los usuarios puedan reservarlo.</p>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <div class="grid-two">
+        <div class="form-group">
+          <label for="title">Título</label>
+          <input id="title" formControlName="title" />
+        </div>
+
+        <div class="form-group">
+          <label for="pricePerHour">Precio por hora (COP)</label>
+          <input id="pricePerHour" type="number" formControlName="pricePerHour" min="0" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Descripción</label>
+        <textarea id="description" rows="3" formControlName="description"></textarea>
+      </div>
+
+      <div class="grid-two">
+        <div class="form-group">
+          <label for="city">Ciudad</label>
+          <input id="city" formControlName="city" />
+        </div>
+
+        <div class="form-group">
+          <label for="neighborhood">Barrio</label>
+          <input id="neighborhood" formControlName="neighborhood" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="address">Dirección</label>
+        <input id="address" formControlName="address" />
+      </div>
+
+      <div class="grid-two">
+        <div class="form-group">
+          <label for="latitude">Latitud</label>
+          <input id="latitude" type="number" formControlName="latitude" />
+        </div>
+
+        <div class="form-group">
+          <label for="longitude">Longitud</label>
+          <input id="longitude" type="number" formControlName="longitude" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="images">Imágenes</label>
+        <input id="images" type="file" (change)="onFilesSelected($event)" multiple />
+        <small *ngIf="images.length > 0">
+          {{ images.length }} archivo(s) seleccionado(s)
+        </small>
+      </div>
+
+      <div class="messages">
+        <span class="error" *ngIf="error">{{ error }}</span>
+        <span class="success" *ngIf="success">{{ success }}</span>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn-secondary" (click)="cancel()">
+          Cancelar
+        </button>
+        <button type="submit" class="btn-primary" [disabled]="loading">
+          <span *ngIf="!loading">Guardar</span>
+          <span *ngIf="loading">Guardando...</span>
+        </button>
+      </div>
+    </form>
+  </div>
