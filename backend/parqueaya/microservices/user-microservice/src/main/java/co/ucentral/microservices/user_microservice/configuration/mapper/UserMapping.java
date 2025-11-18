@@ -1,14 +1,13 @@
 package co.ucentral.microservices.user_microservice.configuration.mapper;
 
-import co.ucentral.microservices.user_microservice.domain.user.NewUserRequest;
-import co.ucentral.microservices.user_microservice.domain.user.UpdateUserRequest;
-import co.ucentral.microservices.user_microservice.domain.user.User;
-import co.ucentral.microservices.user_microservice.domain.user.UserResponse;
+import co.ucentral.microservices.user_microservice.domain.user.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.Set;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -17,6 +16,11 @@ public class UserMapping {
     private final PasswordEncoder passwordEncoder;
 
     public User toUser(NewUserRequest newUserDto){
+
+        Set<RoleUser> roles = newUserDto.roles().stream()
+                .map(r -> RoleUser.valueOf(r.trim().toUpperCase()))
+                .collect(Collectors.toSet());
+
         return User.builder()
                 .username(newUserDto.username())
                 .password(passwordEncoder.encode(newUserDto.password()))
@@ -25,6 +29,7 @@ public class UserMapping {
                 .email(newUserDto.email())
                 .age(newUserDto.age())
                 .phone(newUserDto.phone())
+                .roles(roles)
                 .build();
     }
 

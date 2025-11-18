@@ -3,6 +3,8 @@ package co.ucentral.microservices.user_microservice.domain.user;
 import jakarta.validation.constraints.*;
 import lombok.Builder;
 
+import java.util.List;
+
 @Builder
 public record NewUserRequest(
         @NotBlank(message = "the username is required")
@@ -26,6 +28,9 @@ public record NewUserRequest(
         @Max(value = 100, message = "age must be less than 8")
         Integer age,
 
-        Integer phone
+        Integer phone,
+
+        List<String> roles
+
 ) {
 }
