@@ -61,12 +61,32 @@
 
         <div class="form-group">
           <label for="phone">Teléfono</label>
-          <input id="phone" type="number" formControlName="phone" />
+          <input id="phone" type="tel" formControlName="phone" />
           <div class="error" *ngIf="form.get('phone')?.touched && form.get('phone')?.invalid">
             Obligatorio.
           </div>
         </div>
+
       </div>
+
+
+
+      <div class="grid-two">
+        <div class="form-group">
+          <label for="role">Rol</label>
+          <select id="role" formControlName="roles">
+            <option *ngFor="let role of roles" [value]="[role]">{{ role }}</option>
+          </select>
+          <div class="error" *ngIf="form.get('roles')?.touched && form.get('roles')?.invalid">
+            Selecciona un rol.
+          </div>
+        </div>
+
+
+      </div>
+
+
+      
 
       <div class="error global" *ngIf="errorMessage">
         {{ errorMessage }}

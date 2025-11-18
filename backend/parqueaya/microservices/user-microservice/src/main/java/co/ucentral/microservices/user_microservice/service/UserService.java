@@ -23,6 +23,7 @@ public class UserService {
             throw new EmailAlreadyExistException(newUser.email());
         }
         User user = userMapping.toUser(newUser);
+        System.out.println(user.toString());
         userRepository.save(user);
     }
 

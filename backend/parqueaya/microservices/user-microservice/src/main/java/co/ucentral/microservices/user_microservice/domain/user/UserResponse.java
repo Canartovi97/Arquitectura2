@@ -11,7 +11,7 @@ public record UserResponse(
         String lastname,
         String email,
         Integer age,
-        Integer phone
+        String phone
 
 ) {
 }

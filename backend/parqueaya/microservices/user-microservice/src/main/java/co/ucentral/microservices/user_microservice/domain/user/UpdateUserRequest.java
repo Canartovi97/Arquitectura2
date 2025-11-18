@@ -19,7 +19,7 @@ public record UpdateUserRequest(
         @Min(value = 15, message = "age must be greater than 15")
         @Max(value = 110, message = "age must be less than 8")
         Integer age,
-        Integer phone
+        String phone
 
 ) {
 }

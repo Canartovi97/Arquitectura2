@@ -37,30 +37,30 @@ public class User implements UserDetails {
     private Integer age;
     private String  phone;
 
-//    private RoleUser role;
+    private RoleUser role;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "USER_ROLES", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "role")
-    private Set<RoleUser> roles = new HashSet<>();
+//    @ElementCollection(fetch = FetchType.EAGER)
+//    @Enumerated(EnumType.STRING)
+//    @CollectionTable(name = "USER_ROLES", joinColumns = @JoinColumn(name = "user_id"))
+//    @Column(name = "role")
+//    private Set<RoleUser> roles = new HashSet<>();
 
 
-
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        if (this.role == null) {
-//            return List.of();
-//        }
-//        return List.of(new SimpleGrantedAuthority("ROLE_" + this.role.name()));
-//    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.roles.stream()
-                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.name()))
-                .collect(Collectors.toSet());
+        if (this.role == null) {
+            return List.of();
+        }
+        return List.of(new SimpleGrantedAuthority("ROLE_" + this.role.name()));
     }
+
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        return this.roles.stream()
+//                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.name()))
+//                .collect(Collectors.toSet());
+//    }
 
 
 }

@@ -27,13 +27,14 @@ public class CustomFilterFactory extends AbstractGatewayFilterFactory<CustomFilt
     public GatewayFilter apply(CustomFilterFactory.Config config) {
         return (exchange, chain) -> {
 
-            if (exchange.getRequest().getMethod() == HttpMethod.OPTIONS) {
-                return chain.filter(exchange);
-            }
+//            if (exchange.getRequest().getMethod() == HttpMethod.OPTIONS) {
+//                return chain.filter(exchange);
+//            }
 
             String headerToken = exchange.getRequest().getHeaders().getFirst("Authorization");
             String path =  exchange.getRequest().getPath().value();
-//            System.out.println(path);
+            String method = exchange.getRequest().getMethod().toString();
+            System.out.println(path + " " +  method);
 
             if(path.equals("/api/v1/users/create") || path.equals("/api/v1/user/auth/login")){
                 return chain.filter(exchange);

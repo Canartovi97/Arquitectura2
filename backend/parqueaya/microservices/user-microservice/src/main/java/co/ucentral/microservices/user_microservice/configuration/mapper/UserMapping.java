@@ -17,9 +17,9 @@ public class UserMapping {
 
     public User toUser(NewUserRequest newUserDto){
 
-        Set<RoleUser> roles = newUserDto.roles().stream()
-                .map(r -> RoleUser.valueOf(r.trim().toUpperCase()))
-                .collect(Collectors.toSet());
+//        Set<RoleUser> roles = newUserDto.roles().stream()
+//                .map(r -> RoleUser.valueOf(r.trim().toUpperCase()))
+//                .collect(Collectors.toSet());
 
         return User.builder()
                 .username(newUserDto.username())
@@ -29,7 +29,7 @@ public class UserMapping {
                 .email(newUserDto.email())
                 .age(newUserDto.age())
                 .phone(newUserDto.phone())
-                .roles(roles)
+                .role(RoleUser.valueOf(newUserDto.roles()))
                 .build();
     }
 

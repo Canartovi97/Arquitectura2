@@ -17,6 +17,8 @@ export class Register {
   errorMessage = '';
   successMessage = '';
 
+protected roles = ['OWNER', 'CUSTOMER'];
+
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
@@ -29,7 +31,10 @@ export class Register {
       lastname: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       age: [null, [Validators.required, Validators.min(18)]],
-      phone: [null, Validators.required]
+      // phone: [null, Validators.required]
+      phone: ['', Validators.required],
+      roles: [['CUSTOMER'], Validators.required]
+
 
     });
   }

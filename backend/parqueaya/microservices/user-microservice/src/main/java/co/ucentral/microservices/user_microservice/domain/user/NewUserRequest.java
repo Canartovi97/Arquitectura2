@@ -7,6 +7,7 @@ import java.util.List;
 
 @Builder
 public record NewUserRequest(
+
         @NotBlank(message = "the username is required")
         String username,
 
@@ -28,9 +29,9 @@ public record NewUserRequest(
         @Max(value = 100, message = "age must be less than 8")
         Integer age,
 
-        Integer phone,
+        String phone,
 
-        List<String> roles
+        String roles
 
 ) {
 }

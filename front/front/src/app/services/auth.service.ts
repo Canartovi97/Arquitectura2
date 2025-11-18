@@ -12,6 +12,7 @@ export interface RegisterRequest {
   email: string;
   age: number;
   phone: string;
+  roles: string[]
 }
 
 export interface LoginRequest {
@@ -32,7 +33,9 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   register(body: RegisterRequest): Observable<any> {
-    return this.http.post(`${API_URL}/users/create`, body);
+    // return this.http.post(`${API_URL}/users/create`, body);
+    console.log(body);
+    return this.http.post('http://localhost:8080/api/v1/users/create', body);
   }
 
   login(body: LoginRequest): Observable<LoginResponse> {
