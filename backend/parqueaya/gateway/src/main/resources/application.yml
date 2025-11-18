@@ -39,3 +39,18 @@ spring:
                 - Path=/api/v1/payments/**
               filters:
                 - CustomFilterFactory
+
+          globalcors:
+            corsConfigurations:
+              '[/**]':
+                allowedOrigins:
+                  - "http://localhost:4200"
+                allowedMethods:
+                  - GET
+                  - POST
+                  - PUT
+                  - DELETE
+                  - PATCH
+                allowedHeaders: "*"
+                allowCredentials: true
+

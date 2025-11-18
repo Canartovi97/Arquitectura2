@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.core.io.buffer.DataBuffer;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
@@ -25,6 +26,10 @@ public class CustomFilterFactory extends AbstractGatewayFilterFactory<CustomFilt
     @Override
     public GatewayFilter apply(CustomFilterFactory.Config config) {
         return (exchange, chain) -> {
+
+            if (exchange.getRequest().getMethod() == HttpMethod.OPTIONS) {
+                return chain.filter(exchange);
+            }
 
             String headerToken = exchange.getRequest().getHeaders().getFirst("Authorization");
             String path =  exchange.getRequest().getPath().value();
