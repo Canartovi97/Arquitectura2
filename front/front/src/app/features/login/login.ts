@@ -40,7 +40,7 @@ export class Login {
       next: () => {
         this.loading = false;
         // luego redirigimos a dashboard de parqueaderos
-        this.router.navigate(['/']);
+        this.router.navigate(['/dashboard']);
       },
       error: (err) => {
         this.loading = false;

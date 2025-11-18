@@ -31,7 +31,7 @@ public class User implements UserDetails {
     @Column(nullable = false,unique = true)
     private String email;
     private Integer age;
-    private Integer phone;
+    private String  phone;
 
 
     @Override
