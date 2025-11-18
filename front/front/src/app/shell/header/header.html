@@ -1,26 +1,27 @@
-<header class="header">
-  <div class="topbar"></div>
+<header class="app-header">
+  <div class="app-header__inner">
+    <div class="app-header__brand" (click)="goHome()">
+      <div class="logo-circle">P</div>
+      <div class="brand-text">
+        <span class="brand-title">Parking App</span>
+        <span class="brand-subtitle">Gestión de parqueaderos</span>
+      </div>
+    </div>
 
-  <div class="inner">
-    <a class="brand" routerLink="/">
-      <img src="assets/parfing.png" alt="" aria-hidden="true" />
-      <span>Park<span class="accent">Now</span></span>
-    </a>
-
-    <nav class="nav" [class.open]="isOpen">
-      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Inicio</a>
-      <a routerLink="/buscar" routerLinkActive="active">Buscar</a>
-      <a routerLink="/reservas" routerLinkActive="active">Mis reservas</a>
-      <a routerLink="/ayuda" routerLinkActive="active">Ayuda</a>
+    <nav class="app-header__nav" *ngIf="isLoggedIn">
+      <a routerLink="/parkings" routerLinkActive="active">Parqueaderos</a>
+      <a routerLink="/reservas" routerLinkActive="active">Reservas</a>
+      <a routerLink="/perfil" routerLinkActive="active">Mi cuenta</a>
     </nav>
 
-    <div class="actions">
-      <a class="btn ghost" routerLink="/register">Registrarse</a>
-      <a class="btn primary" routerLink="/login">Ingresar</a>
-
-      <button class="hamb" (click)="toggle()" aria-label="Abrir menú">
-        <span></span><span></span><span></span>
+    <div class="app-header__actions">
+      <button *ngIf="isLoggedIn" class="btn-outline" (click)="logout()">
+        Cerrar sesión
       </button>
+
+      <a *ngIf="!isLoggedIn" routerLink="/login" class="btn-primary">
+        Iniciar sesión
+      </a>
     </div>
   </div>
 </header>

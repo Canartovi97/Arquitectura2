@@ -8,34 +8,47 @@ spring:
     import: optional:configserver:http://localhost:8888
   cloud:
     gateway:
-      server:
-        webflux:
-          routes:
+      routes:
+        - id: user-service
+          uri: lb://user-microservice
+          predicates:
+            - Path=/api/v1/users/** , /api/v1/user/auth/**
+          filters:
+            - CustomFilterFactory
 
-            - id: user-service
-              uri: lb://user-microservice
-              predicates:
-                - Path=/api/v1/users/** , /api/v1/user/auth/**
-              filters:
-                - CustomFilterFactory
+        - id: parking-service
+          uri: lb://parking-microservice
+          predicates:
+            - Path=/api/v1/parking-spaces/**
+          filters:
+            - CustomFilterFactory
 
-            - id: parking-service
-              uri: lb://parking-microservice
-              predicates:
-                - Path=/api/v1/parking-spaces/**
-              filters:
-                - CustomFilterFactory
+        - id: booking-service
+          uri: lb://booking-microservice
+          predicates:
+            - Path=/api/v1/bookings/**
+          filters:
+            - CustomFilterFactory
 
-            - id: booking-service
-              uri: lb://booking-microservice
-              predicates:
-                - Path=/api/v1/bookings/**
-              filters:
-                - CustomFilterFactory
+        - id: payment-service
+          uri: lb://payment-microservice
+          predicates:
+            - Path=/api/v1/payments/**
+          filters:
+            - CustomFilterFactory
 
-            - id: payment-service
-              uri: lb://payment-microservice
-              predicates:
-                - Path=/api/v1/payments/**
-              filters:
-                - CustomFilterFactory
+
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "http://localhost:4200"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders: "*"
+            allowCredentials: true

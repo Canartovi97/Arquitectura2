@@ -1,0 +1,142 @@
+.auth-layout {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at top, #4f46e5 0, #020617 55%);
+  padding: 1.5rem;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-image: url(../../../../public/assets/background.webp);
+  background-size: cover;
+  background-position: center;
+  backdrop-filter: blur(4px);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  background: #0b1120;
+  border-radius: 16px;
+  padding: 2rem 2.2rem;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  color: #e5e7eb;
+}
+
+.auth-header h1 {
+  margin: 0;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: #f9fafb;
+}
+
+.auth-header p {
+  margin: 0.35rem 0 1.5rem;
+  font-size: 0.9rem;
+  color: #9ca3af;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+
+  label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #e5e7eb;
+  }
+
+  input {
+    border-radius: 999px;
+    border: 1px solid #4b5563;
+    padding: 0.55rem 0.9rem;
+    background: #020617;
+    color: #e5e7eb;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+
+    &:focus {
+      border-color: #6366f1;
+      box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.5);
+      background: #020617;
+    }
+
+    &::placeholder {
+      color: #6b7280;
+    }
+  }
+}
+
+button[type='submit'] {
+  margin-top: 0.5rem;
+  border: none;
+  border-radius: 999px;
+  padding: 0.6rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #22c55e, #4ade80);
+  color: #022c22;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s, filter 0.1s;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 22px rgba(34, 197, 94, 0.35);
+    filter: brightness(1.02);
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: default;
+  }
+}
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  border: 2px solid rgba(15, 118, 110, 0.5);
+  border-top-color: #064e3b;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+
+.error {
+  font-size: 0.78rem;
+  color: #f97373;
+}
+
+.error.global {
+  margin-top: 0.25rem;
+}
+
+.auth-footer {
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  color: #9ca3af;
+  text-align: center;
+
+  .link {
+    border: none;
+    background: none;
+    color: #60a5fa;
+    cursor: pointer;
+    font-weight: 600;
+    margin-left: 0.2rem;
+    padding: 0;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
