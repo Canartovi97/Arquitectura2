@@ -185,35 +185,71 @@ export class ParkingDetailComponent implements OnInit {
     });
   }
 
-  onPayMercadoPago(): void {
-    if (!this.booking || !this.parking) return;
+  // onPayMercadoPago(): void {
+  //   if (!this.booking || !this.parking) return;
 
-    this.loadingPayment = true;
-    this.error = '';
-    this.success = '';
-    this.paymentStatus = '';
+  //   this.loadingPayment = true;
+  //   this.error = '';
+  //   this.success = '';
+  //   this.paymentStatus = '';
 
-    const body = {
-      bookingId: this.booking.id,
-      userId: this.getCurrentUserId(),
-      amount: this.estimatedAmount,
-      currency: 'COP',
-      description: `Reserva de estacionamiento en ${this.parking.title}`,
-    };
+  //   const body = {
+  //     bookingId: this.booking.id,
+  //     userId: this.getCurrentUserId(),
+  //     amount: this.estimatedAmount,
+  //     currency: 'COP',
+  //     description: `Reserva de estacionamiento en ${this.parking.title}`,
+  //   };
 
-    this.paymentService.payWithMercadoPago(body).subscribe({
-      next: (res) => {
-        this.loadingPayment = false;
-        this.paymentStatus =
-          'Pago enviado a Mercado Pago (demo). Revisa la respuesta en consola.';
-        console.log('MercadoPago response', res);
-      },
-      error: () => {
-        this.loadingPayment = false;
-        this.error = 'No fue posible procesar el pago con Mercado Pago.';
-      },
-    });
-  }
+  //   this.paymentService.payWithMercadoPago(body).subscribe({
+  //     next: (res) => {
+  //       this.loadingPayment = false;
+  //       this.paymentStatus =
+  //         'Pago enviado a Mercado Pago (demo). Revisa la respuesta en consola.';
+  //       console.log('MercadoPago response', res);
+  //     },
+  //     error: () => {
+  //       this.loadingPayment = false;
+  //       this.error = 'No fue posible procesar el pago con Mercado Pago.';
+  //     },
+  //   });
+  // }
+
+
+onPayMercadoPago(): void {
+  if (!this.booking || !this.parking) return;
+
+  this.loadingPayment = true;
+  this.error = '';
+  this.success = '';
+  this.paymentStatus = '';
+
+  const body = {
+    bookingId: this.booking.id,
+    userId: this.getCurrentUserId(),
+    amount: this.estimatedAmount,
+    currency: 'COP',
+    description: `Reserva de estacionamiento en ${this.parking.title}`,
+  };
+
+  this.paymentService.payWithMercadoPago(body).subscribe({
+    next: (res) => {
+      this.loadingPayment = false;
+
+      if (res?.paymentUrl) {
+        // ✅ Abre en una NUEVA pestaña
+        window.open(res.paymentUrl, '_blank');
+      } else {
+        this.error = 'No se recibió una URL válida para el pago.';
+      }
+    },
+    error: () => {
+      this.loadingPayment = false;
+      this.error = 'No fue posible procesar el pago con Mercado Pago.';
+    },
+  });
+}
+
 
   goBack(): void {
     this.router.navigate(['/parking-spaces']);

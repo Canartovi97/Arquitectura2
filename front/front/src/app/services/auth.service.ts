@@ -24,6 +24,7 @@ export interface LoginRequest {
 export interface LoginResponse {
   jwt: string;
   message: string;
+  role:string;
 }
 
 @Injectable({ providedIn: 'root' })

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { ParkingService, ParkingSpace } from '../../../services/parking.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-parking-dashboard',
@@ -20,7 +21,8 @@ export class ParkingDashboardComponent implements OnInit {
 
   constructor(
     private parkingService: ParkingService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
