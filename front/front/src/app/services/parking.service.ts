@@ -10,6 +10,7 @@ export interface ParkingLocation {
   neighborhood: string;
   latitude: number;
   longitude: number;
+
 }
 
 export interface ParkingSpace {
@@ -46,4 +47,15 @@ export class ParkingService {
   createParkingSpace(formData: FormData): Observable<any> {
     return this.http.post(`${API_URL}/parking-spaces`, formData);
   }
+
+
+  getParkingSpace(id: number): Observable<ParkingSpace> {
+    return this.http.get<ParkingSpace>(`${API_URL}/parking-spaces/${id}`);
+  }
+
+
+  getAvailableSpaces(): Observable<ParkingSpace[]> {
+    return this.http.get<ParkingSpace[]>(`${API_URL}/parking-spaces/available`);
+  }
+
 }

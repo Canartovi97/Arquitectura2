@@ -64,4 +64,12 @@ export class ParkingDashboardComponent implements OnInit {
   goToCreate(): void {
     this.router.navigate(['/parking-spaces/new']);
   }
+
+  openDetail(id?: number): void {
+    if (!id) return;
+    this.router.navigate(['/parking-space', id]);
+  }
+
+
+
 }

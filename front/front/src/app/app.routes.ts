@@ -32,8 +32,20 @@ export const routes: Routes = [
         (m) => m.ParkingFormComponent
       ),
   },
+
+  {
+    path: 'parking-space/:id',
+    loadComponent: () =>
+      import('./features/parking/parking-detail.component/parking-detail.component').then(
+        (m) => m.ParkingDetailComponent
+      ),
+  },
+
+
   {
     path: '**',
     redirectTo: 'login',
   },
+
+
 ];

@@ -1,0 +1,147 @@
+<div class="detail-page">
+  <div class="detail-card" *ngIf="parking; else loadingOrError">
+    <header class="detail-header">
+      <div>
+        <h1>{{ parking.title }}</h1>
+        <p>
+          {{ parking.location?.neighborhood }},
+          {{ parking.location?.city }}
+        </p>
+      </div>
+
+      <button class="btn-secondary" type="button" (click)="goBack()">
+        Volver
+      </button>
+    </header>
+
+    <section class="detail-body">
+      <!-- PANEL IZQUIERDO: INFO DEL PARQUEADERO -->
+      <div class="info-panel">
+        <p class="label">Descripción</p>
+        <p class="value description">
+          {{ parking.description }}
+        </p>
+
+        <div class="row">
+          <span class="label">Precio por hora</span>
+          <span class="value price">
+            {{ parking.pricePerHour | currency : 'COP' : 'symbol-narrow' : '1.0-0' }}
+          </span>
+        </div>
+
+        <div class="row">
+          <span class="label">Dirección</span>
+          <span class="value">
+            {{ parking.location?.address }}
+          </span>
+        </div>
+
+        <div class="row coords" *ngIf="parking.location">
+          <span class="label">Coordenadas</span>
+          <span class="value">
+            Lat: {{ parking.location.latitude }} ·
+            Lng: {{ parking.location.longitude }}
+          </span>
+        </div>
+
+        <!-- IMÁGENES DEL PARQUEADERO (debajo de coordenadas) -->
+        <div class="images-section" *ngIf="hasImages">
+          <p class="label">Imágenes del parqueadero</p>
+
+          <div class="images-grid">
+            <div class="main-image">
+              <img [src]="parking!.imageUrls![activeImageIndex]" [alt]="parking?.title" />
+            </div>
+
+            <div class="thumbs">
+              <button type="button" *ngFor="let img of parking!.imageUrls!; let i = index"
+                [class.active]="i === activeImageIndex" (click)="selectImage(i)">
+                <img [src]="img" [alt]="parking?.title + ' ' + (i + 1)" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- MAPA DE GOOGLE (debajo de las imágenes) -->
+        <div class="map-wrapper" *ngIf="parking.location && googleMapsUrl">
+          <iframe class="map-frame" [src]="googleMapsUrl | safeUrl" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+
+      <!-- PANEL DERECHO: RESERVA Y PAGO -->
+      <div class="booking-panel">
+        <h2>Reserva tu espacio</h2>
+        <p class="hint">
+          Selecciona el rango de tiempo para la reserva.
+        </p>
+
+        <form [formGroup]="bookingForm" (ngSubmit)="onCreateBooking()">
+          <div class="grid-two">
+            <div class="form-group">
+              <label for="startTime">Inicio</label>
+              <input id="startTime" type="datetime-local" formControlName="startTime" />
+            </div>
+
+            <div class="form-group">
+              <label for="endTime">Fin</label>
+              <input id="endTime" type="datetime-local" formControlName="endTime" />
+            </div>
+          </div>
+
+          <div class="amount-row">
+            <span class="label">Monto estimado</span>
+            <span class="value price">
+              {{ estimatedAmount | currency : 'COP' : 'symbol-narrow' : '1.0-0' }}
+            </span>
+          </div>
+
+          <div class="messages">
+            <span class="error" *ngIf="error">{{ error }}</span>
+            <span class="success" *ngIf="success">{{ success }}</span>
+            <span class="info" *ngIf="paymentStatus">{{ paymentStatus }}</span>
+          </div>
+
+          <div class="actions">
+            <button class="btn-primary" type="submit" [disabled]="loadingBooking || loadingPayment">
+              <ng-container *ngIf="!loadingBooking; else loadingBookingTpl">
+                <span *ngIf="!booking">Reservar</span>
+                <span *ngIf="booking && booking.status !== 'CANCELLED'">
+                  Actualizar reserva
+                </span>
+              </ng-container>
+            </button>
+
+            <button class="btn-outline" type="button" (click)="onCancelBooking()" [disabled]="
+                !booking ||
+                booking.status === 'CANCELLED' ||
+                loadingBooking
+              ">
+              Cancelar reserva
+            </button>
+
+            <button class="btn-mercado" type="button" (click)="onPayMercadoPago()"
+              [disabled]="!booking || loadingPayment">
+              Pagar con Mercado Pago (demo)
+            </button>
+          </div>
+
+          <ng-template #loadingBookingTpl>
+            <span>Procesando...</span>
+          </ng-template>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <ng-template #loadingOrError>
+    <div class="detail-card">
+      <div *ngIf="loadingParking" class="state">
+        Cargando parqueadero...
+      </div>
+      <div *ngIf="!loadingParking && error" class="state error-state">
+        {{ error }}
+      </div>
+    </div>
+  </ng-template>
+</div>

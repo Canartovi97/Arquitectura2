@@ -17,7 +17,7 @@
       </div>
 
       <div class="cards-grid" *ngIf="spaces.length > 0">
-        <article class="card" *ngFor="let space of spaces">
+        <article class="card" *ngFor="let space of spaces" (click)="openDetail(space.id)">
           <div class="card-header">
             <div>
               <h2>{{ space.title }}</h2>
